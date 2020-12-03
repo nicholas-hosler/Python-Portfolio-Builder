@@ -138,7 +138,6 @@ def get_portfolio_value():
             print("That's not a valid option! Please enter an ")
     return new_portfolio_value
 
-
 def update_holdings(cwd,allocation,leftover,latest_prices):
     print("Discrete allocations:" + "\n")
     for k,v in allocation.items():
@@ -149,7 +148,7 @@ def update_holdings(cwd,allocation,leftover,latest_prices):
     
     # all for comparing
     try:
-        # Time Stamp for portfolio records - epoch format (seconds elapsed since Jan 1 1970) ### For Testing #### 
+        # Time Stamp for portfolio records - epoch format (seconds elapsed since Jan 1 1970) 
         timestamp = str(round(time.time()))
         
         latest_prices_df = latest_prices.set_index('Ticker')
@@ -216,9 +215,6 @@ def main():
     
     # Ask user for portfolio value
     new_portfolio_value = get_portfolio_value()
-    
-
-    
     
     asset_list = get_asset_list()
     
@@ -294,7 +290,6 @@ def main():
     time.sleep(.1)
     ef.portfolio_performance(verbose=True)
 
-    
     # getting discrete allocations and historical holdings
     # Get the current working directory
     cwd = os.getcwd()
