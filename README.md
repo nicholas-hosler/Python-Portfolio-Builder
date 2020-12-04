@@ -1,6 +1,6 @@
 # Python-Portfolio-Builder
  This is a python script to build a Sharpe Ratio maximizing equity portfolio based on user inputs. 
- It was constructed for learning purposes only and should not be rellied upon for financial advise, please always consult a professional before making any impactful financial
+ It was constructed for learning purposes only and should not be relied upon for financial advise, please always consult a professional before making any impactful financial
  decisions. Hope anyone reading this finds the project interesting!
  
 Libraries Required:
