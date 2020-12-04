@@ -89,7 +89,7 @@ def read_asset_list_pricing_data(asset_list,df,stock_start,today):
 def plot_securities(securities):
         
     # Start creating views of the data (likely a mess)
-    title = 'Trended Portfolio Adj. Close Price'
+    title = 'Trended Portfolio Adj. Close Price of New Portfolio Holdings'
     
     #Create and plot chart
     plt.figure(figsize=(12.2,4.5)) #12.2IN W 4.5IN H
@@ -101,7 +101,9 @@ def plot_securities(securities):
     plt.xlabel('Date',fontsize=18)
     plt.ylabel('Adj. Price USD ($)',fontsize=18)
     plt.legend(securities.columns.values,loc='upper left')
+    plt.draw()
     plt.show()
+    return
     
 def discrete_allocations(df,weights,new_portfolio_value):
     latest_prices = get_latest_prices(df)
@@ -138,14 +140,18 @@ def get_portfolio_value():
             print("That's not a valid option! Please enter an ")
     return new_portfolio_value
 
-def update_holdings(cwd,allocation,leftover,latest_prices):
+def update_holdings(cwd,allocation,leftover,latest_prices,df):
     print("Discrete allocations:" + "\n")
+    allocation_list = list()
     for k,v in allocation.items():
         time.sleep(.25)
         print("You should hold "+str(v)+" units of "+ k)
+        allocation_list.append(k)
+        
     time.sleep(.25)
     print("Funds remaining after above holdings: ${:.2f}".format(leftover))
-    
+    securities = df.loc[:,allocation_list]
+       
     # all for comparing
     try:
         # Time Stamp for portfolio records - epoch format (seconds elapsed since Jan 1 1970) 
@@ -180,6 +186,8 @@ def update_holdings(cwd,allocation,leftover,latest_prices):
                   "Current generated Holdings Have been saved to \\02 Prior Holdings.")
             #write out the combined data with the timestamp
             combined.to_csv(cwd+"\\02 Prior Holdings\\Portfolio_Allocations_"+timestamp+".csv",index=False)
+            
+    plot_securities(securities) 
             
 def get_asset_list():
         ask = True
@@ -298,7 +306,7 @@ def main():
     data = discrete_allocations(df,cleaned_weights,new_portfolio_value)
 
     # update holdings - save a copy of holdings and provides instructions to update
-    update_holdings(cwd,data[0],data[1],data[2])
+    update_holdings(cwd,data[0],data[1],data[2],df)
     
     again = True
     while again == True: 
@@ -311,9 +319,10 @@ def main():
                 data = discrete_allocations(df,cleaned_weights,new_portfolio_value)
                 
                 # update holdings - save a copy of holdings and provides instructions to update
-                update_holdings(cwd,data[0],data[1],data[2])
+                update_holdings(cwd,data[0],data[1],data[2],df)
              elif response == "N":
                  again = False
+                 print("Thank you for using the portfolio optimizer 1.0!")
              else:
                  print("That's not a valid option! Please enter Y or N.")
         except:
