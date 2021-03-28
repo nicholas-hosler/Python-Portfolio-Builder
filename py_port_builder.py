@@ -211,7 +211,7 @@ def get_asset_list():
                 print("That's not a valid option! Please enter SP500 or CUSTOM.")
         return asset_list
     
-
+    
 # Begin Main Script  
 
 def main():
@@ -219,7 +219,7 @@ def main():
     print("The purpose of this program is to show you the difference between investing in an arbitrarily \n"+
           "weighted portfolio consisting of S&P500 member firms, and a Sharpe Ratio optimized risk-adjusted \n"+
           "return maximizing portfolio. It will store your last holdings locally and give you a task list to adjust \n"+
-          "your new portfolio when you re-run the srcipt. I hope you find this code and its purpose as insightful as I did!")
+          "your new portfolio when you re-run the script. I hope you find this code and its purpose as insightful as I did!")
     
     # Ask user for portfolio value
     new_portfolio_value = get_portfolio_value()
