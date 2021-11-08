@@ -36,6 +36,11 @@ from pypfopt import expected_returns
 from pypfopt.discrete_allocation import DiscreteAllocation, get_latest_prices
 import warnings
 
+
+import yfinance as yfin
+import pandas_datareader as pdr
+yfin.pdr_override()
+
 # Functions 
 
 # function to get list of all S&P500 Constituents from Wikipedia list (most up to date available publicly)
@@ -80,7 +85,8 @@ def read_asset_list_pricing_data(asset_list,df,stock_start,today):
     for stock in asset_list:
         try:
             print("Getting data for: "+stock+"...")
-            df[stock] = web.DataReader(stock,data_source='yahoo', start=stock_start,end=today)['Adj Close']
+            df[stock] = yfin.download(stock, start=stock_start,end=today)['Adj Close']
+            
         except:
             print(stock + ' missing dates')
             pass
@@ -322,7 +328,7 @@ def main():
                 update_holdings(cwd,data[0],data[1],data[2],df)
              elif response == "N":
                  again = False
-                 print("Thank you for using the portfolio optimizer 1.0!")
+                 print("Thank you for using the portfolio optimizer 1.1")
              else:
                  print("That's not a valid option! Please enter Y or N.")
         except:
